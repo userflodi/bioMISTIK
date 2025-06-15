@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступ к сайту</title>
+    <style>
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('s.ttf') format('truetype');
+        }
+        
+        body {
+            font-family: 'CustomFont', sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            background-image: url('photo2.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .access-container {
+            background: rgba(30, 30, 30, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(156, 39, 176, 0.7);
+            border: 1px solid #7b1fa2;
+            max-width: 500px;
+            width: 90%;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from {
+                box-shadow: 0 0 25px rgba(156, 39, 176, 0.7);
+            }
+            to {
+                box-shadow: 0 0 35px rgba(156, 39, 176, 0.9);
+            }
+        }
+        
+        h1 {
+            color: #ba68c8;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(186, 104, 200, 0.8);
+            font-size: 2rem;
+        }
+        
+        .countdown {
+            font-size: 1.8rem;
+            margin: 25px 0;
+            color: #ff5252;
+            text-shadow: 0 0 15px rgba(255, 82, 82, 0.7);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        .loading-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #9c27b0, #7b1fa2);
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="access-container">
+        <h1>@userloya мой повелитель</h1>
+        <div class="countdown" id="countdown">5</div>
+        <div class="loading-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 5;
+        const countdownEl = document.getElementById('countdown');
+        const progressEl = document.getElementById('progress');
+        
+        function updateCountdown() {
+            countdownEl.textContent = seconds;
+            progressEl.style.width = `${(5 - seconds) * 20}%`;
+            
+            if (seconds <= 0) {
+                // Устанавливаем флаг доступа в sessionStorage
+                sessionStorage.setItem('accessGranted', 'true');
+                // Перенаправляем на основную страницу
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            seconds--;
+            setTimeout(updateCountdown, 1000);
+        }
+        
+        // Начать отсчет при загрузке
+        updateCountdown();
+    </script>
+</body>
+</html>

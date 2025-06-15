@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<script>
+    // Проверяем, не был ли пользователь перенаправлен с stop.html
+    if (!sessionStorage.getItem('accessGranted')) {
+        // Если нет - перенаправляем на stop.html
+        window.location.href = 'stop.html';
+    }
+    
+    // При закрытии страницы сбрасываем флаг доступа
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.removeItem('accessGranted');
+    });
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>МИСТИК | OSINT-специалист</title>
+    <style>
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('s.ttf') format('truetype');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'CustomFont', 'Courier New', monospace;
+        }
+        
+        body {
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: pan-y;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('photo2.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px) brightness(0.3);
+            z-index: -2;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px; /* Уменьшена максимальная ширина */
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .text-background {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 25px rgba(103, 58, 183, 0.7);
+            border: 1px solid #444;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #7b1fa2;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(156, 39, 176, 0.9), 
+                         0 0 30px rgba(156, 39, 176, 0.6);
+            color: #ba68c8;
+            background: linear-gradient(90deg, #ba68c8, #7e57c2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            padding: 0 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(186, 104, 200, 0.8),
+                             0 0 20px rgba(186, 104, 200, 0.6);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(186, 104, 200, 1),
+                             0 0 25px rgba(186, 104, 200, 0.8);
+            }
+        }
+        
+        .specialization {
+            font-size: 1.1rem;
+            color: #b39ddb;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.5;
+            text-shadow: 0 0 8px rgba(179, 157, 219, 0.5);
+        }
+        
+        .bio {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 0.95rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3);
+        }
+        
+        .important {
+            color: #ff5252;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 12px;
+            border-left: 3px solid #ff5252;
+            background: rgba(255, 82, 82, 0.15);
+            border-radius: 4px;
+            text-shadow: 0 0 8px rgba(255, 82, 82, 0.5);
+            box-shadow: 0 0 10px rgba(255, 82, 82, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        .works {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #555;
+            box-shadow: 0 0 15px rgba(124, 77, 255, 0.4);
+        }
+        
+        .project-name {
+            font-size: 1.4rem;
+            color: #7c4dff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 15px rgba(124, 77, 255, 0.7);
+        }
+        
+        .contact {
+            margin-top: 12px;
+            font-size: 1rem;
+        }
+        
+        .contact a {
+            color: #40c4ff;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 6px 12px;
+            border-radius: 4px;
+            background: rgba(64, 196, 255, 0.15);
+            border: 1px solid rgba(64, 196, 255, 0.4);
+            text-shadow: 0 0 10px rgba(64, 196, 255, 0.5);
+            box-shadow: 0 0 15px rgba(64, 196, 255, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .contact a:hover {
+            color: #18ffff;
+            background: rgba(24, 255, 255, 0.25);
+            text-shadow: 0 0 15px rgba(24, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(24, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-background">
+            <header>
+                <h1>МИСТИК</h1>
+                <div class="specialization">
+                    УНИВЕРСАЛЬНЫЙ OSINT-СПЕЦИАЛИСТ<br>
+                    ШИРОКИЙ ПРОФИЛЬ. ЧЁТКИЙ ПОДХОД.
+                </div>
+            </header>
+            
+            <div class="bio">
+    <p>Работаю по факту — каждая задача имеет свою цену.<br>
+    Никаких "попробовать" или "а можно просто спросить".<br>
+    Обратился — будь готов платить за результат.</p>
+    
+    <div class="important">
+        ❗️ ВАЖНО:<br>
+        Я не ведусь на провокации.<br>
+        Проявляешь агрессию — работа с тобой завершается.<br>
+        Без объяснений и без возвратов.
+    </div>
+    
+    <p>Со мной ты получаешь информацию,<br>
+    которая решает вопросы. Остальное — шум.
+    <span class="unpaid-warning">!!!ЭТОТ ДОЛБАЕБ НЕ ОПЛАТИЛ БАЛЯТЬ!!!</span><br></p>
+</div>
+
+<style>
+.unpaid-warning {
+    color: #ff0000;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    animation: blink-warning 0.5s infinite alternate;
+}
+
+@keyframes blink-warning {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.7;
+    }
+}
+</style>
+            </div>
+            
+            <div class="works">
+                <div class="project-name">BODKM</div>
+                <div class="contact">
+                    <a href="https://t.me/wecrh" target="_blank">https://t.me/wecrh</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setViewportHeight() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', setViewportHeight);
+        setViewportHeight();
+    </script>
+</body>
+</html>
